@@ -51,7 +51,7 @@ def main():
     parser.add_argument("--file", help="input filename")
     parser.add_argument("--length", help="length of output generated text")
     args = parser.parse_args()
-    print(args.file, args.length)
+    # print(args.file, args.length)
     filename = args.file
     length = int(args.length)
     # filename = 'input.txt'
