@@ -18,11 +18,13 @@ class Text():
 
         word_dict = {}
         for i in range(0, len(splited_text) - 1):
-            if splited_text[i] not in word_dict:
-                word_dict[splited_text[i]] = [splited_text[i + 1]]
-            else:
-                if splited_text[i + 1] not in word_dict[splited_text[i]]:
-                    word_dict[splited_text[i]].append(splited_text[i + 1])
+            # исключаем повторения слов на стыках предложений
+            if splited_text[i] != splited_text[i + 1]:
+                if splited_text[i] not in word_dict:
+                    word_dict[splited_text[i]] = [splited_text[i + 1]]
+                else:
+                    if splited_text[i + 1] not in word_dict[splited_text[i]]:
+                        word_dict[splited_text[i]].append(splited_text[i + 1])
 
         return pickle.dumps(word_dict)
 
