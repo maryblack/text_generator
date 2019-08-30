@@ -2,7 +2,6 @@ import argparse
 import re
 import pickle
 import random
-import operator
 
 
 class Text():
@@ -18,15 +17,14 @@ class Text():
         splited_text = re.split('\\s+', cleaned_text)
 
         word_dict = {}
-        for i in range(0,len(splited_text)-1):
+        for i in range(0, len(splited_text) - 1):
             if splited_text[i] not in word_dict:
-                word_dict[splited_text[i]] = [splited_text[i+1]]
+                word_dict[splited_text[i]] = [splited_text[i + 1]]
             else:
-                if splited_text[i+1] not in word_dict[splited_text[i]]:
+                if splited_text[i + 1] not in word_dict[splited_text[i]]:
                     word_dict[splited_text[i]].append(splited_text[i + 1])
 
         return pickle.dumps(word_dict)
-
 
     def generate(self, length: int):
         bigrams = pickle.loads(self.fit())
@@ -36,7 +34,7 @@ class Text():
         generated_text = [init_word]
         curr = init_word
         # генерируем новый текст длины length
-        for i in range(length-1):
+        for i in range(length - 1):
             # выбираем случайно слово, следующее после текущего -> curr
             next = random.choice(bigrams[curr])
             generated_text.append(next)
@@ -46,7 +44,6 @@ class Text():
         # создаем файл с новым текстом
         with open('generated.txt', 'w') as f:
             f.write(' '.join(generated_text))
-
 
 
 def main():
@@ -60,7 +57,6 @@ def main():
     # filename = 'input.txt'
     text_1 = Text(filename)
     text_1.generate(length)
-
 
 
 if __name__ == '__main__':
